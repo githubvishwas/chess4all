@@ -645,6 +645,10 @@
     config.p1 = ""
 	// draggable must be true if sparePieces is enabled
     config.p2 = ""
+	// draggable must be true if sparePieces is enabled
+    config.fp = 1
+	// draggable must be true if sparePieces is enabled
+    config.sp = 0
     return config
   }
 
@@ -1647,18 +1651,23 @@
     function mousedownSquare (evt) {
 		var square = $(this).attr('data-square')
 		if (!validSquare(square)) return	
+		if(config.fp == 1) {
+			config.p1 = square
+		} else {
+			config.p2 = square
+		}
 		if(config.p1 == "") {
 		  config.p1 = square
 		} else {
 		  config.p2 = square	
 		}
 
-		if (!currentPosition.hasOwnProperty(square)) {
-		  readOutLoud(square)
-		  return
-		} else {
-		  readOutLoud(square + " " + GetPieceName(currentPosition[square]))
-		}	
+		// if (!currentPosition.hasOwnProperty(square)) {
+		  // readOutLoud(square)
+		  // return
+		// } else {
+		  // readOutLoud(square + " " + GetPieceName(currentPosition[square]))
+		// }	
 		// do nothing if we're not draggable
 		if (!config.draggable) return
 
@@ -1671,17 +1680,22 @@
     }
 
     function touchstartSquare (e) {
-	  var square = $(this).attr('data-square')
+		var square = $(this).attr('data-square')
 		if (!validSquare(square)) return	
+		if(config.fp == 1) {
+			config.p1 = square
+		} else {
+			config.p2 = square
+		}
 		if(config.p1 == "") {
 		  config.p1 = square
 		} else {
 		  config.p2 = square	
-		}	
+		}
       
 	  
 	  // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
+      
       if (!validSquare(square)) return
       if (!currentPosition.hasOwnProperty(square)) {
 		  readOutLoud(square)

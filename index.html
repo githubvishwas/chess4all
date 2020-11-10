@@ -60,20 +60,28 @@ var text_move_map = new Map(
 body = document.getElementsByTagName('html')[0];
 var hammertime = new Hammer(body);
 hammertime.on('doubletap', function(ev) {
-	// see if the move is legal
-  var move = game.move({
-    from: config.p1,
-    to: config.p2,
-    promotion: 'q' // NOTE: always promote to a queen for example simplicity
-  })
-  config.p1 = ""
-  config.p2 = ""
-  
-  // illegal move
-  if (move === null) return 'snapback'
-
-  // make random legal move for black
-  window.setTimeout(makeRandomMove, 250)
+	if(config.fp == 1) {
+		config.fp = 0
+	} else {
+		config.fp = 1
+		// see if the move is legal
+	  var move = game.move({
+		from: config.p1,
+		to: config.p2,
+		promotion: 'q' // NOTE: always promote to a queen for example simplicity
+	  })
+	  config.p1 = ""
+	  config.p2 = ""
+	  
+	  // illegal move
+	  if (move === null) { 
+		readOutLoud("Invalid move")
+		return 'snapback'
+	  }
+		
+	  // make random legal move for black
+	  window.setTimeout(makeRandomMove, 250)
+	 }
 	
 });
 
