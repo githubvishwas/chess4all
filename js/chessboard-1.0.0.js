@@ -50,7 +50,60 @@
   CSS['sparePiecesTop'] = 'spare-pieces-top-4028b'
   CSS['square'] = 'square-55d63'
   CSS['white'] = 'white-1e1d7'
+  /*-----------------------------
+      Speech Synthesis 
+	------------------------------*/
 
+	function readOutLoud(message) {
+		var speech = new SpeechSynthesisUtterance();
+
+	  // Set the text and voice attributes.
+		speech.text = message;
+		speech.volume = 1;
+		speech.rate = 1;
+		speech.pitch = 1;
+	  
+		window.speechSynthesis.speak(speech);
+	} 
+	function GetPieceName(txt) {
+		if (txt == 'wK') {
+			return "White King"
+		}
+		if (txt == 'wQ') {
+			return "White Queen"
+		}
+		if (txt == 'wR') {
+			return "White Rook"
+		}
+		if (txt == 'wB') {
+			return "White Bishop"
+		}
+		if (txt == 'wN') {
+			return "White Knight"
+		}
+		if (txt == 'wP') {
+			return "White Pawn"
+		}
+		if (txt == 'bK') {
+			return "Black King"
+		}
+		if (txt == 'bQ') {
+			return "Black Queen"
+		}
+		if (txt == 'bR') {
+			return "Black Rook"
+		}
+		if (txt == 'bB') {
+			return "Black Bishop"
+		}
+		if (txt == 'bN') {
+			return "Black Knight"
+		}
+		if (txt == 'bP') {
+			return "Black Pawn"
+		}
+		
+	}		
   // ---------------------------------------------------------------------------
   // Misc Util Functions
   // ---------------------------------------------------------------------------
@@ -886,7 +939,7 @@
 
       return interpolateTemplate(html, CSS)
     }
-
+	
     function buildSparePiecesHTML (color) {
       var pieces = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP']
       if (color === 'black') {
@@ -1596,7 +1649,7 @@
       var square = $(this).attr('data-square')
       if (!validSquare(square)) return
       if (!currentPosition.hasOwnProperty(square)) return
-
+		 
       beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
     }
 
@@ -1607,10 +1660,10 @@
       var square = $(this).attr('data-square')
       if (!validSquare(square)) return
       if (!currentPosition.hasOwnProperty(square)) {
-		  alert(square)
+		  readOutLoud(square)
 		  return
 	  } else {
-		  alert(square + " " + currentPosition[square])
+		  readOutLoud(square + " " + GetPieceName(currentPosition[square]))
 	  }
 	  
       if (!config.draggable) return
