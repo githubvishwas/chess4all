@@ -35,6 +35,7 @@
 
 <script src="./js/chessboard-1.0.0.js"></script>
 <script src="./js/chess.js" ></script>
+<script src="./js/hammer.min.js" ></script>
 <script>
 // --- Begin Example JS --------------------------------------------------------
 // NOTE: this example uses the chess.js library:
@@ -42,14 +43,6 @@
 
 var board = null
 var game = new Chess()
-try {
-  var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var recognition = new SpeechRecognition();
-}
-catch(e) {
-  console.error(e);
-  alert('Audio move is not supported by your browser. Try in Google Chrome');
-}
 
 var text_move_map = new Map(
 	[
@@ -64,13 +57,27 @@ var text_move_map = new Map(
 		["#","checkmate"]
 	]
 );
+body = document.getElementsByTagName('html')[0];
+var hammertime = new Hammer(body);
+hammertime.on('doubletap', function(ev) {
+	// see if the move is legal
+  var move = game.move({
+    from: config.p1,
+    to: config.p2,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  })
+  config.p1 = ""
+  config.p2 = ""
+  
+  // illegal move
+  if (move === null) return 'snapback'
 
-var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-var speechRecognitionList = new SpeechGrammarList();
+  // make random legal move for black
+  window.setTimeout(makeRandomMove, 250)
+	
+});
 
-recognition.lang = 'en-US';
-recognition.interimResults = false;
-recognition.maxAlternatives = 10;
+
 /*-----------------------------
       Speech Synthesis 
 ------------------------------*/
@@ -141,6 +148,7 @@ var config = {
   position: 'start'
 }
 board = Chessboard('myBoard', config)
+//readOutLoud("Welcome")
 // --- End Example JS ----------------------------------------------------------
 </script>
 </body>

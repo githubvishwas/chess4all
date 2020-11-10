@@ -641,7 +641,10 @@
 
     // throttle rate
     if (!validThrottleRate(config.dragThrottleRate)) config.dragThrottleRate = DEFAULT_DRAG_THROTTLE_RATE
-
+	// draggable must be true if sparePieces is enabled
+    config.p1 = ""
+	// draggable must be true if sparePieces is enabled
+    config.p2 = ""
     return config
   }
 
@@ -1642,19 +1645,40 @@
     }
 
     function mousedownSquare (evt) {
-      // do nothing if we're not draggable
-      if (!config.draggable) return
+		var square = $(this).attr('data-square')
+		if (!validSquare(square)) return	
+		if(config.p1 == "") {
+		  config.p1 = square
+		} else {
+		  config.p2 = square	
+		}
 
-      // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
-      if (!validSquare(square)) return
-      if (!currentPosition.hasOwnProperty(square)) return
+		if (!currentPosition.hasOwnProperty(square)) {
+		  readOutLoud(square)
+		  return
+		} else {
+		  readOutLoud(square + " " + GetPieceName(currentPosition[square]))
+		}	
+		// do nothing if we're not draggable
+		if (!config.draggable) return
+
+		// do nothing if there is no piece on this square
+		var square = $(this).attr('data-square')
+		if (!validSquare(square)) return
+		if (!currentPosition.hasOwnProperty(square)) return
 		 
-      beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
+		beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
     }
 
     function touchstartSquare (e) {
-      // do nothing if we're not draggable
+	  var square = $(this).attr('data-square')
+		if (!validSquare(square)) return	
+		if(config.p1 == "") {
+		  config.p1 = square
+		} else {
+		  config.p2 = square	
+		}	
+      
 	  
 	  // do nothing if there is no piece on this square
       var square = $(this).attr('data-square')
@@ -1665,7 +1689,7 @@
 	  } else {
 		  readOutLoud(square + " " + GetPieceName(currentPosition[square]))
 	  }
-	  
+	  // do nothing if we're not draggable
       if (!config.draggable) return
 
       
