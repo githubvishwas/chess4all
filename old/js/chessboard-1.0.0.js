@@ -50,7 +50,60 @@
   CSS['sparePiecesTop'] = 'spare-pieces-top-4028b'
   CSS['square'] = 'square-55d63'
   CSS['white'] = 'white-1e1d7'
+  /*-----------------------------
+      Speech Synthesis 
+	------------------------------*/
 
+	function readOutLoud(message) {
+		var speech = new SpeechSynthesisUtterance();
+
+	  // Set the text and voice attributes.
+		speech.text = message;
+		speech.volume = 1;
+		speech.rate = 1;
+		speech.pitch = 1;
+	  
+		window.speechSynthesis.speak(speech);
+	} 
+	function GetPieceName(txt) {
+		if (txt == 'wK') {
+			return "White King"
+		}
+		if (txt == 'wQ') {
+			return "White Queen"
+		}
+		if (txt == 'wR') {
+			return "White Rook"
+		}
+		if (txt == 'wB') {
+			return "White Bishop"
+		}
+		if (txt == 'wN') {
+			return "White Knight"
+		}
+		if (txt == 'wP') {
+			return "White Pawn"
+		}
+		if (txt == 'bK') {
+			return "Black King"
+		}
+		if (txt == 'bQ') {
+			return "Black Queen"
+		}
+		if (txt == 'bR') {
+			return "Black Rook"
+		}
+		if (txt == 'bB') {
+			return "Black Bishop"
+		}
+		if (txt == 'bN') {
+			return "Black Knight"
+		}
+		if (txt == 'bP') {
+			return "Black Pawn"
+		}
+		
+	}		
   // ---------------------------------------------------------------------------
   // Misc Util Functions
   // ---------------------------------------------------------------------------
@@ -588,7 +641,14 @@
 
     // throttle rate
     if (!validThrottleRate(config.dragThrottleRate)) config.dragThrottleRate = DEFAULT_DRAG_THROTTLE_RATE
-
+	// draggable must be true if sparePieces is enabled
+    config.p1 = ""
+	// draggable must be true if sparePieces is enabled
+    config.p2 = ""
+	// draggable must be true if sparePieces is enabled
+    config.fp = 1
+	// draggable must be true if sparePieces is enabled
+    config.sp = 0
     return config
   }
 
@@ -886,7 +946,7 @@
 
       return interpolateTemplate(html, CSS)
     }
-
+	
     function buildSparePiecesHTML (color) {
       var pieces = ['wK', 'wQ', 'wR', 'wB', 'wN', 'wP']
       if (color === 'black') {
@@ -1589,25 +1649,64 @@
     }
 
     function mousedownSquare (evt) {
-      // do nothing if we're not draggable
-      if (!config.draggable) return
+		var square = $(this).attr('data-square')
+		if (!validSquare(square)) return	
+		if(config.fp == 1) {
+			config.p1 = square
+		} else {
+			config.p2 = square
+		}
+		if(config.p1 == "") {
+		  config.p1 = square
+		} else {
+		  config.p2 = square	
+		}
 
-      // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
-      if (!validSquare(square)) return
-      if (!currentPosition.hasOwnProperty(square)) return
+		// if (!currentPosition.hasOwnProperty(square)) {
+		  // readOutLoud(square)
+		  // return
+		// } else {
+		  // readOutLoud(square + " " + GetPieceName(currentPosition[square]))
+		// }	
+		// do nothing if we're not draggable
+		if (!config.draggable) return
 
-      beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
+		// do nothing if there is no piece on this square
+		var square = $(this).attr('data-square')
+		if (!validSquare(square)) return
+		if (!currentPosition.hasOwnProperty(square)) return
+		 
+		beginDraggingPiece(square, currentPosition[square], evt.pageX, evt.pageY)
     }
 
     function touchstartSquare (e) {
-      // do nothing if we're not draggable
+		var square = $(this).attr('data-square')
+		if (!validSquare(square)) return	
+		if(config.fp == 1) {
+			config.p1 = square
+		} else {
+			config.p2 = square
+		}
+		if(config.p1 == "") {
+		  config.p1 = square
+		} else {
+		  config.p2 = square	
+		}
+      
+	  
+	  // do nothing if there is no piece on this square
+      
+      if (!validSquare(square)) return
+      if (!currentPosition.hasOwnProperty(square)) {
+		  readOutLoud(square)
+		  return
+	  } else {
+		  readOutLoud(square + " " + GetPieceName(currentPosition[square]))
+	  }
+	  // do nothing if we're not draggable
       if (!config.draggable) return
 
-      // do nothing if there is no piece on this square
-      var square = $(this).attr('data-square')
-      if (!validSquare(square)) return
-      if (!currentPosition.hasOwnProperty(square)) return
+      
 
       e = e.originalEvent
       beginDraggingPiece(
