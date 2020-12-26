@@ -75,7 +75,7 @@ function readOutLoud(message) {
 	window.speechSynthesis.speak(speech);
 }
 function ButtonDoubleClick (buttonobj) {
-	readOutLoud(buttonobj.innerHTML + " double clicked!")
+	alert(buttonobj.innerHTML + " double clicked!")
 }
 function ButtonSingleClick (buttonobj) {
 	readOutLoud(buttonobj.innerHTML + " single clicked!")
