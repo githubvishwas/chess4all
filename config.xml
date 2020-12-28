@@ -8,7 +8,7 @@
 <!-- versionCode is optional and Android only -->
 
   <name>ChessTalkBack</name>
-
+  <icon src="icon.png" />	
   <description>
       Play chess with engine using screen reader option.
   </description>
