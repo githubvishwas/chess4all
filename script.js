@@ -6,8 +6,7 @@ const endAudio = new Audio('sounds/Error.mp3');
 const gameOverAudio = new Audio('sounds/gameOver.wav');
 const gameFinishAudio = new Audio('sounds/Victory.mp3');
 const lowTimeAudio = new Audio('sounds/LowTime.mp3');
-let $boardHighlighting = $('#board');
-let squareClass = 'square-55d63'
+
 // do not pick up pieces if the game is over
 // only pick up pieces for the side to move
 
@@ -20,129 +19,76 @@ var _dragElement = null, _dragActive = false, _startX, _startY, _dragCtrl, _drag
 var _tooltipState = false, _wantUpdateInfo = true;;
 var _wname = "White", _bname = "Black", _color = 0, _bodyScale = 1;
 var _nncache = null;
-
+var glb_source = "";
+var glb_target = "";
+var sdepth = 10;
+var gamestart = 'w';
 var board,
-  game = new Chess(),
-  //statusEl = $('#status'),
+game = new Chess(),
   
+  pgnEl = $('#pgn'),
+  engineMove = $('#enginemove'),
   colorsEI = $('#col1');
-  
+  var SQUARES = {
+           0:"a8",    1:"b8",    2:"c8",    3:"d8",    4:"e8",    5:"f8",    6:"g8",    7:"h8",
+          16:"a7",   17:"b7",   18:"c7",   19:"d7",   20:"e7",   21:"f7",   22:"g7",   23:"h7",
+          32:"a6",   33:"b6",   34:"c6",   35:"d6",   36:"e6",   37:"f6",   38:"g6",   39:"h6",
+          48:"a5",   49:"b5",   50:"c5",   51:"d5",   52:"e5",   53:"f5",   54:"g5",   55:"h5",
+          64:"a4",   65:"b4",   66:"c4",   67:"d4",   68:"e4",   69:"f4",   70:"g4",   71:"h4",
+          80:"a3",   81:"b3",   82:"c3",   83:"d3",   84:"e3",   85:"f3",   86:"g3",   87:"h3",
+          96:"a2",   97:"b2",   98:"c2",   99:"d2",  100:"e2",  101:"f2",  102:"g2",  103:"h2",
+         112:"a1",  113:"b1",  114:"c1",  115:"d1",  116:"e1",  117:"f1",  118:"g1",  119:"h1"
+    };
+	var PIECES = {
+		r: "Black Rook",
+		n: "Black Knight",
+		b: "Black Bishop",
+		q: "Black Queen",
+		k: "Black King",
+		p: "Black Pawn",
+		R: "White Rook",
+		N: "White Knight",
+		B: "White Bishop",
+		Q: "White Queen",
+		K: "White King",
+		P: "White Pawn"
+	};
   var elem = document.getElementById('col1');
-var whiteSquareGrey = '#a9a9a9'
-var blackSquareGrey = '#696969'
-var overlay
-function removeHighlights () {
-        $boardHighlighting.find('.' + squareClass)
-          .removeClass('highlight-white')
-        $boardHighlighting.find('.' + squareClass)
-          .removeClass('highlight-black')
-      }
-function removeGreySquares () {
-  $('#board .square-55d63').css('background', '')
-}
-
-function greySquare (square) {
-  var $square = $('#board .square-' + square)
-
-  var background = whiteSquareGrey
-  if ($square.hasClass('black-3c85d')) {
-    background = blackSquareGrey
-  }
-
-  $square.css('background', background)
-}  
+var text_move_map = new Map(
+	[
+		["N","knight"],
+		["B","bishop"],
+		["Q","queen"],
+		["K","king"],
+		["R","rook"],
+		["x","takes"],
+		["O-O","king side castle"],
+		["O-O-O","longcastle"],
+		["#","checkmate"]
+	]
+);
 var getMove = function () {
-	
-    window.setTimeout(makeBestMove, 250);
-};
-  
-var onDragStart = function(source, piece, position, orientation) {
-  if (game.game_over() === true ||
-      (game.turn() === 'w' && piece.search(/^b/) !== -1) ||
-      (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
-    return false;
-  }
-};
-function readOutLoud(message) {
-	var speech = new SpeechSynthesisUtterance();
-
-  // Set the text and voice attributes.
-	speech.text = message;
-	speech.volume = 1;
-	speech.rate = 1;
-	speech.pitch = 1;
-  
-	window.speechSynthesis.speak(speech);
-}
-function ButtonDoubleClick (buttonobj) {
-	alert(buttonobj.innerHTML + " double clicked!")
-}
-function ButtonSingleClick (buttonobj) {
-	readOutLoud(buttonobj.innerHTML + " single clicked!")
-}
-function onMouseoutSquare (square, piece) {
-  removeGreySquares()
-}
-function onMouseoverSquare (square, piece) {
-  // get list of possible moves for this square
-  greySquare(square)
-  var moves = game.moves({
-    square: square,
-    verbose: true
-  })
-
-  // exit if there are no moves available for this square
-  if (moves.length === 0) return
-
-  // highlight the square they moused over
-  greySquare(square)
-
-  // highlight the possible squares for this piece
-  for (var i = 0; i < moves.length; i++) {
-    greySquare(moves[i].to)
-  }
-}
-var onDrop = function(source, target) {
-  // see if the move is legal
-  removeGreySquares()
-  var move = game.move({
-    from: source,
-    to: target,
-    promotion: 'q' // NOTE: always promote to a queen for example simplicity
-  });
-
-  // illegal move
-  if (move === null) return 'snapback';
-
-  updateStatus();
-	if (move.captured) captureAudio.play()
-        else moveAudio.play()
-    //window.setTimeout(makeBestMove, 250);
 	makeBestMove()
-	
 };
+  
+
 var makeBestMove = function () {
     if (game.game_over()) {
         alert('Game over');
     }
 
     positionCount = 0;
-    //var depth = parseInt($('#search-depth').find(':selected').text());
-	
-	
+    
 	makeEngineMove(1)
-    board.position(game.fen());
+    
 	updateStatus();
-   
+    
     if (game.game_over()) {
         alert('Game over');
     }
 };
 // update the board position after the piece snap 
 // for castling, en passant, pawn promotion
-var onSnapEnd = function() {
-  board.position(game.fen());
-};
 
 var updateStatus = function() {
   var status = '';
@@ -175,40 +121,106 @@ var updateStatus = function() {
     }
   }
 
-  //statusEl.html(status);
+  
 
-  board.position(game.fen());
 };
-var cfg = {
-  draggable: true,
-  position: 'start',
-  onDragStart: onDragStart,
-  onDrop: onDrop,
-  onSnapEnd: onSnapEnd,
-  // moveSpeed: 'slow',
-  // snapbackSpeed: 'slow',
-  // snapSpeed: 'slow',
-  // trashSpeed: 'slow',
-  onMouseoutSquare: onMouseoutSquare,
-  onMouseoverSquare: onMouseoverSquare,
-  orientation: elem.options[elem.selectedIndex].value
-};
-// did this based on a stackoverflow answer
-// http://stackoverflow.com/questions/29493624/cant-display-board-whereas-the-id-is-same-when-i-use-chessboard-js
-// setTimeout(function() {
+function is_digit(c) {
+        return '0123456789'.indexOf(c) !== -1;
+    }
+function load(fen) {
+        var tokens = fen.split(/\s+/);
+        var position = tokens[0];
+        var square = 0;
 
-    // board = ChessBoard('board', cfg);
-// //    updateStatus();
-// }, 0);
-
-var takeBack = function() {
-    game.undo();
-    game.undo();
-    board.position(game.fen());
-    updateStatus();
+        for (var i = 0; i < position.length; i++) {
+            var piece = position.charAt(i);
+			if (piece === '/') {
+                square += 8;
+            } else if (is_digit(piece)) {
+                //square += parseInt(piece, 10);
+				for (var j = 0; j < parseInt(piece, 10); j++) {
+					//alert(gamestart + SQUARES[square])
+					var e = document.getElementById(gamestart + SQUARES[square]);
+					e.innerHTML = SQUARES[square]
+					//console.log(SQUARES[square])
+					square++;
+				}
+            } else {
+				
+                //alert(gamestart + SQUARES[square] + square)
+				var e = document.getElementById(gamestart + SQUARES[square]);
+				e.innerHTML = SQUARES[square] + " " + PIECES[piece]
+				//console.log(SQUARES[square] + " " + PIECES[piece])
+                square++;
+            }
+        }
+		return true
+        
+    }
+var Undo = function() {
+	game.undo()
+	game.undo()
+    load(game.fen())
 }
+function ButtonSingleClick (buttonobj) {
+	
+	
+	if (glb_source == "") {
+		
+		glb_source = buttonobj.id.substring(1);
+	} else if(glb_source != "" && glb_target == "") {
+		glb_target = buttonobj.id.substring(1);
+		
+		makehumanmove(glb_source,glb_target)
+	} else {
+		
+		glb_source = buttonobj.id.substring(1);
+		glb_target = ""
+	}
+}
+function updateBoard(source, target) {
+	
+	var e = document.getElementById(gamestart + source);
+	
+	var pclst = e.innerHTML.split(" ");
+	var pc = pclst[pclst.length - 2] + " " + pclst[pclst.length - 1];
+	var newtxt1 = pclst[0]
+	e.innerHTML = newtxt1
+	
+	var e = document.getElementById(gamestart + target);
+	
+	var pclst1 = e.innerHTML.split(" ");
+	
+	var newtxt1 = pclst1[0] + " " + pc
+	e.innerHTML = newtxt1
+}
+function makehumanmove(source, target) {
+  // see if the move is legal
+  
+  var move = game.move({
+    from: source,
+    to: target,
+    promotion: 'q' // NOTE: always promote to a queen for example simplicity
+  });
+
+  // illegal move
+  if (move === null) {
+	  //alert("illegal move!")
+	  engineMove.html("illegal move!")
+	  glb_source = ""
+	  glb_target = ""
+	  return 'snapback';
+  }
+
+  updateBoard(source,target);
+  if (move.captured) captureAudio.play()
+			else moveAudio.play()
+	makeBestMove()
+	pgnEl.html("PGN: " + game.pgn());
+    //window.setTimeout(makeBestMove, 250);
+};
 function loadEngine() {
-  var engine = {ready: false, kill: false, waiting: true, depth: 10, lastnodes: 0};
+  var engine = {ready: false, kill: false, waiting: true, depth: sdepth, lastnodes: 0};
   var wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
   if (typeof(Worker) === "undefined") return engine;
   var workerData = new Blob([atob(wasmSupported ? sfWasm : sf)], { type: "text/javascript" });
@@ -270,19 +282,43 @@ function changeBoard() {
 	newGame()
 	startAudio.play();
 	if (this.options[this.selectedIndex].value == 'black') {
-
+		
+		//alert("Currently board orientation will still be from white side")
+		gamestart = 'b'
+		var b = document.getElementById("myboard_black");
+		b.style.display = "block"
+		var c = document.getElementById("myboard_white");
+		c.style.display = "none"
 		getMove()
+		
+	} else {
+		gamestart = 'w'
+		var b = document.getElementById("myboard_white");
+		b.style.display = "block"
+		var c = document.getElementById("myboard_black");
+		c.style.display = "none"
 	}
 }
 var newGame = function() {
 	
-    game.reset();
-    board = ChessBoard('board', cfg);
-	// overlay = new ChessboardArrows('board_wrapper');
-	//board.start(true)
-	board.orientation(elem.options[elem.selectedIndex].value)
-	
+    //game.reset();
+    
     updateStatus();
+}
+/*-----------------------------
+      Speech Synthesis 
+------------------------------*/
+
+function readOutLoud(message) {
+	var speech = new SpeechSynthesisUtterance();
+
+  // Set the text and voice attributes.
+	speech.text = message;
+	speech.volume = 1;
+	speech.rate = 1;
+	speech.pitch = 1;
+  
+	window.speechSynthesis.speak(speech);
 }
 function makeEngineMove (makeMove) {
 	_engine.kill = false;
@@ -310,19 +346,32 @@ function makeEngineMove (makeMove) {
 
 		  // illegal move
 		  if (move === null) return 'snapback'
-		  board.position(game.fen())
+		  updateBoard(source,target)
+		  
+		  var pgn = game.pgn().split(" ");
+	
+			var move = pgn[pgn.length - 1];
+			var engmove = ""
+			for (var i = 0; i < move.length; i++) {
+				txt = text_move_map.get(move[i])
+				if (txt == null) {
+					txt = move[i]
+				}
+				//readOutLoud(txt);
+				//alert(txt)
+				engmove = engmove + " " + txt 
+			}
+			engineMove.html(engmove)
 		  if (move.captured) captureAudio.play()
 			else moveAudio.play()
-		  removeHighlights();
-			$boardHighlighting.find('.square-' + move.from).addClass('highlight-' + squares[move.from])
-			$boardHighlighting.find('.square-' + move.to).addClass('highlight-' + squares[move.to])
+		  pgnEl.html("PGN: " + game.pgn());
 		  updateStatus()
 		  //console.log(getStaticEvalList(game.fen()))
 		}
 		
 	  }
 	},function info(depth, score, pv) {
-        if(depth == 10) {
+        if(depth == sdepth) {
 			console.log(score)
 			//document.getElementById("cpscore").innerHTML = " CP score: " + score/100;
 		}
@@ -330,5 +379,7 @@ function makeEngineMove (makeMove) {
 	
 	
 }
+
 _engine = loadEngine();
 newGame()
+

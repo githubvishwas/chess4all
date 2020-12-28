@@ -2,14 +2,14 @@
 
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154613217-1"></script> -->
-    <!-- <script> -->
-        <!-- window.dataLayer = window.dataLayer || []; -->
-        <!-- function gtag(){dataLayer.push(arguments);} -->
-        <!-- gtag('js', new Date()); -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154613217-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-        <!-- gtag('config', 'UA-154613217-1'); -->
-    <!-- </script> -->
+        gtag('config', 'UA-154613217-1');
+    </script>
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,10 +21,10 @@
 	<link rel="icon" href="chess.png">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
-	<title>Play Chess</title>
-	<meta name="description" content="Play Chess">
-	<meta property="og:title" content="Let us play chess!" />
-	<meta property="og:description" content="Let us play chess!">
+	<title>Chess 4 All</title>
+	<meta name="description" content="Chess 4 All">
+	<meta property="og:title" content="Chess 4 All!" />
+	<meta property="og:description" content="Chess 4 All!">
 	<meta property="og:image" content="chess_big.png">
 	
 	<!-- Optional theme -->
@@ -43,57 +43,192 @@
 	<!-- <div id="board_wrapper"> -->
 		<!-- <canvas id="primary_canvas" width="343" height="343" ></canvas> -->
 		<!-- <canvas id="drawing_canvas"  width="343" height="343" ></canvas> -->
-		<div id="board" style="width: 350px;display:none"></div>
-    <!-- </div> -->
-	<div id="meta">
-		<!-- <p>Status: <span id="status" style="width: 250px"></span></p> -->
-
 		
-		<!-- <button type="button" class="btn btn-default" id="undo" onclick="takeBack()";>Undo</button> -->
-		<select class="form-control" id="col1" onchange="changeBoard.call(this, event)">
+    <!-- </div> -->
+
+	<div id="myboard" >
+		<select class="form-control" id="col1" onchange="changeBoard.call(this, event)" >
 			<option value="white">Play as White</option>
 			<option value="black">Play as Black</option>
 		</select>
-		<br></br>
+		
 		<select class="form-control" id="sel1" onchange="changeLevel.call(this, event)">
 									<option value="1">Difficulty: Low</option>
 									<option value="2">Difficulty: Medium</option>
 									<option value="3">Difficulty: High</option>
 									<option value="4">Difficulty: Tough</option>
 								</select>
-		<br></br>						
-		<button type="button"  class="btn btn-default" style="width: 18%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Rook</button>						
-		<button type="button"  class="btn btn-default" style="width: 18%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Knight</button>						
-		<button type="button"  class="btn btn-default" style="width: 18%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Bishop</button>						
-		<button type="button"  class="btn btn-default" style="width: 18%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Queen</button>						
-		<button type="button"  class="btn btn-default" style="width: 18%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>King</button>
-		<br></br>                                                        
-	    <button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>A</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>B</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>C</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>D</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>E</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>F</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>G</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>H</button>
-		<br></br>                                                         
-	    <button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>1</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>2</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>3</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>4</button>						
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>5</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>6</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>7</button>
-		<button type="button"  class="btn btn-default" style="width: 11.5%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>8</button>
-		<br></br>                                                         
-		<button type="button"  class="btn btn-default" style="width: 50%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Move</button>
-		<button type="button"  class="btn btn-default" style="width: 47%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Undo</button>
-		<br></br>                                                         
-		<button type="button"  class="btn btn-default" style="width: 50%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Clear Move</button>
-		<button type="button"  class="btn btn-default" style="width: 47%" ondblclick = ButtonDoubleClick(this) onclick = ButtonSingleClick(this)>Board Position</button>
-		<!-- <p>© 2020 vishwas.ib@gmail.com. Powered by <a href="https://chessboardjs.com"> Chessboard.js</a> & <a href="https://github.com/jhlywa/chess.js"> Chess.js</a></p>						 -->
+		<br></br>
+		<div id="myboard_white" style="display:block">		
+			<!-- Rank 8 -->
+			<button type="button" id="wa8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a8 Black Rook</button>						
+			<button type="button" id="wb8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b8 Black Knight</button>						
+			<button type="button" id="wc8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c8 Black Bishop</button>						
+			<button type="button" id="wd8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d8 Black Queen</button>						
+			<button type="button" id="we8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e8 Black King</button>
+			<button type="button" id="wf8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f8 Black Bishop</button>
+			<button type="button" id="wg8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g8 Black Knight</button>
+			<button type="button" id="wh8"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h8 Black Rook</button>
+																		 
+			<!-- Rank 7 -->                                              
+			<button type="button" id="wa7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px" >a7 Black Pawn</button>						
+			<button type="button" id="wb7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px" >b7 Black Pawn</button>						
+			<button type="button" id="wc7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c7 Black Pawn</button>						
+			<button type="button" id="wd7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d7 Black Pawn</button>						
+			<button type="button" id="we7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e7 Black Pawn</button>
+			<button type="button" id="wf7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f7 Black Pawn</button>
+			<button type="button" id="wg7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g7 Black Pawn</button>
+			<button type="button" id="wh7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h7 Black Pawn</button>
+			
+			<!-- Rank 6 -->                                              
+			<button type="button" id="wa6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a6 </button>						
+			<button type="button" id="wb6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b6 </button>						
+			<button type="button" id="wc6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c6 </button>						
+			<button type="button" id="wd6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d6 </button>						
+			<button type="button" id="we6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e6 </button>
+			<button type="button" id="wf6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f6 </button>
+			<button type="button" id="wg6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g6 </button>
+			<button type="button" id="wh6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h6 </button>
+			
+			<!-- Rank 5 -->                                              
+			<button type="button" id="wa5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a5 </button>						
+			<button type="button" id="wb5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b5 </button>						
+			<button type="button" id="wc5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c5 </button>						
+			<button type="button" id="wd5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d5 </button>						
+			<button type="button" id="we5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e5 </button>
+			<button type="button" id="wf5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f5 </button>
+			<button type="button" id="wg5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g5 </button>
+			<button type="button" id="wh5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h5 </button>
+			
+			<!-- Rank 4 -->                                              
+			<button type="button" id="wa4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a4 </button>						
+			<button type="button" id="wb4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b4 </button>						
+			<button type="button" id="wc4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c4 </button>						
+			<button type="button" id="wd4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d4 </button>						
+			<button type="button" id="we4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e4 </button>
+			<button type="button" id="wf4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f4 </button>
+			<button type="button" id="wg4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g4 </button>
+			<button type="button" id="wh4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h4 </button>
+			
+			<!-- Rank 3 -->                                              
+			<button type="button" id="wa3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a3 </button>						
+			<button type="button" id="wb3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b3 </button>						
+			<button type="button" id="wc3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c3 </button>						
+			<button type="button" id="wd3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d3 </button>						
+			<button type="button" id="we3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e3 </button>
+			<button type="button" id="wf3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f3 </button>
+			<button type="button" id="wg3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g3 </button>
+			<button type="button" id="wh3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h3 </button>
+			
+			<!-- Rank 2 -->                                              
+			<button type="button" id="wa2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a2 White Pawn</button>						
+			<button type="button" id="wb2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b2 White Pawn</button>						
+			<button type="button" id="wc2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c2 White Pawn</button>						
+			<button type="button" id="wd2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d2 White Pawn</button>						
+			<button type="button" id="we2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e2 White Pawn</button>
+			<button type="button" id="wf2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f2 White Pawn</button>
+			<button type="button" id="wg2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g2 White Pawn</button>
+			<button type="button" id="wh2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h2 White Pawn</button>
+			
+			<!-- Rank 1 -->                                              
+			<button type="button" id="wa1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a1 White Rook</button>						
+			<button type="button" id="wb1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b1 White Knight</button>						
+			<button type="button" id="wc1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c1 White Bishop</button>						
+			<button type="button" id="wd1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d1 White Queen</button>						
+			<button type="button" id="we1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e1 White King</button>
+			<button type="button" id="wf1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f1 White Bishop</button>
+			<button type="button" id="wg1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g1 White Knight</button>
+			<button type="button" id="wh1" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h1 White Rook</button>
+		</div>
+		<div id="myboard_black" style="display:none">		
+			<!-- Rank 1 -->
+			<button type="button" id="bh1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h1 Black Rook</button>						
+			<button type="button" id="bg1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g1 Black Knight</button>						
+			<button type="button" id="bf1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f1 Black Bishop</button>						
+			<button type="button" id="be1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e1 Black Queen</button>						
+			<button type="button" id="bd1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d1 Black King</button>
+			<button type="button" id="bc1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c1 Black Bishop</button>
+			<button type="button" id="bb1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b1 Black Knight</button>
+			<button type="button" id="ba1"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a1 Black Rook</button>
+																		 
+			<!-- Rank 2 -->                                              
+			<button type="button" id="bh2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h2 Black Pawn</button>						
+			<button type="button" id="bg2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g2 Black Pawn</button>						
+			<button type="button" id="bf2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f2 Black Pawn</button>						
+			<button type="button" id="be2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e2 Black Pawn</button>						
+			<button type="button" id="bd2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d2 Black Pawn</button>
+			<button type="button" id="bc2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c2 Black Pawn</button>
+			<button type="button" id="bb2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b2 Black Pawn</button>
+			<button type="button" id="ba2"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a2 Black Pawn</button>
+			
+			<!-- Rank 3 -->                                              
+			<button type="button" id="bh3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h3 </button>						
+			<button type="button" id="bg3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g3 </button>						
+			<button type="button" id="bf3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f3 </button>						
+			<button type="button" id="be3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e3 </button>						
+			<button type="button" id="bd3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d3 </button>
+			<button type="button" id="bc3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c3 </button>
+			<button type="button" id="bb3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b3 </button>
+			<button type="button" id="ba3"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a3 </button>
+			
+			<!-- Rank 4 -->                                              
+			<button type="button" id="bh4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h4 </button>						
+			<button type="button" id="bg4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g4 </button>						
+			<button type="button" id="bf4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f4 </button>						
+			<button type="button" id="be4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e4 </button>						
+			<button type="button" id="bd4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d4 </button>
+			<button type="button" id="bc4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c4 </button>
+			<button type="button" id="bb4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b4 </button>
+			<button type="button" id="ba4"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a4 </button>
+			
+			<!-- Rank 5 -->                                              
+			<button type="button" id="bh5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h5 </button>						
+			<button type="button" id="bg5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g5 </button>						
+			<button type="button" id="bf5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f5 </button>						
+			<button type="button" id="be5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e5 </button>						
+			<button type="button" id="bd5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d5 </button>
+			<button type="button" id="bc5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c5 </button>
+			<button type="button" id="bb5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b5 </button>
+			<button type="button" id="ba5"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a5 </button>
+			
+			<!-- Rank 6 -->                                              
+			<button type="button" id="bh6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h6 </button>						
+			<button type="button" id="bg6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g6 </button>						
+			<button type="button" id="bf6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f6 </button>						
+			<button type="button" id="be6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e6 </button>						
+			<button type="button" id="bd6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d6 </button>
+			<button type="button" id="bc6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c6 </button>
+			<button type="button" id="bb6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b6 </button>
+			<button type="button" id="ba6"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a6 </button>
+			
+			<!-- Rank 7 -->                                              
+			<button type="button" id="bh7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h7 White Pawn</button>						
+			<button type="button" id="bg7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g7 White Pawn</button>						
+			<button type="button" id="bf7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f7 White Pawn</button>						
+			<button type="button" id="be7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e7 White Pawn</button>						
+			<button type="button" id="bd7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d7 White Pawn</button>
+			<button type="button" id="bc7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c7 White Pawn</button>
+			<button type="button" id="bb7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b7 White Pawn</button>
+			<button type="button" id="ba7"  onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a7 White Pawn</button>
+			
+			<!-- Rank 8 -->                                              
+			<button type="button" id="bh8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >h8 White Rook</button>						
+			<button type="button" id="bg8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >g8 White Knight</button>						
+			<button type="button" id="bf8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >f8 White Bishop</button>						
+			<button type="button" id="be8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >e8 White Queen</button>						
+			<button type="button" id="bd8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >d8 White King</button>
+			<button type="button" id="bc8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >c8 White Bishop</button>
+			<button type="button" id="bb8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >b8 White Knight</button>
+			<button type="button" id="ba8" onclick = ButtonSingleClick(this) class="btn btn-default" style="width: 11%;height: 8%;font-size : 8px;" >a8 White Rook</button>
+		</div>	
+		<!-- <button type="button"  class="btn btn-default" style="width: 50%" onclick = ClearMove()>Clear Move</button> -->
+		<button type="button"  class="btn btn-default" style="width: 95%" id="undo" onclick = Undo()>Undo</button>
+		<br></br>	                                                     
+		
+		<p><span id="enginemove" role="status" aria-live="polite" style="padding-left: 2%;font-size : 8px;"></span></p>
+		<p><span id="pgn" style="padding-left: 2%;font-size : 8px;"></span></p>
+		
 	</div>
-	
     <script src="js/chessboard-1.0.0.min.js"></script>
 	<script src="js/chess.js"></script>
 	<script src="sf.js"></script>
@@ -103,5 +238,6 @@
      <!-- <script src="js/chessboard-arrows.js"></script>  -->
 	<script src="script.js"></script>
 	
+	<!-- <p style="padding-left: 2%">© 2020 <a href="vishwas.ib@gmail.com"> Vishwas</a>. Thanks <a href="https://chessboardjs.com"> Chessboard.js</a>, <a href="https://github.com/jhlywa/chess.js"> Chess.js</a> & <a href="https://stockfishchess.org/"> Stockfish</a></p>						 -->
 </body>
 </html>

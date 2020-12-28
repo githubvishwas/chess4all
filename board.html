@@ -1,0 +1,145 @@
+<html>
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154613217-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-154613217-1');
+    </script>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<link rel="stylesheet" href="css/chessboard-1.0.0.min.css">
+	<link rel="icon" href="chess.png">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="bootstrap-4.3.1-dist/css/bootstrap.min.css">
+	<title>Blind Chess</title>
+	<meta name="description" content="Blind Chess">
+	<meta property="og:title" content="Let us play blind chess!" />
+	<meta property="og:description" content="Let us blind play chess!">
+	<meta property="og:image" content="chess_big.png">
+	
+	<!-- Optional theme -->
+	
+	 <script src="jquery3.5.1/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
+	
+    
+</head>
+
+
+
+<body>
+    
+	<!-- <div id="board_wrapper"> -->
+		<!-- <canvas id="primary_canvas" width="343" height="343" ></canvas> -->
+		<!-- <canvas id="drawing_canvas"  width="343" height="343" ></canvas> -->
+		
+    <!-- </div> -->
+	<div id="myboard">
+		
+		<br></br>	
+		<!-- Rank 8 -->
+		<button type="button" id="a8"  class="btn btn-default" style="width: 10%" >A 8 Rook</button>						
+		<button type="button" id="b8"  class="btn btn-default" style="width: 10%" >B 8 Knight</button>						
+		<button type="button" id="c8"  class="btn btn-default" style="width: 10%" >C 8 Bishop</button>						
+		<button type="button" id="d8"  class="btn btn-default" style="width: 10%" >D 8 Queen</button>						
+		<button type="button" id="e8"  class="btn btn-default" style="width: 10%" >E 8 King</button>
+		<button type="button" id="f8"  class="btn btn-default" style="width: 10%" >F 8 Bishop</button>
+		<button type="button" id="g8"  class="btn btn-default" style="width: 10%" >G 8 Knight</button>
+		<button type="button" id="h8"  class="btn btn-default" style="width: 10%" >H 8 Rook</button>
+																	 
+		<!-- Rank 7 -->                                              
+		<button type="button" id="a7"  class="btn btn-default" style="width: 10%" >A 7 Black Pawn</button>						
+		<button type="button" id="b7"  class="btn btn-default" style="width: 10%" >B 7 Black Pawn</button>						
+		<button type="button" id="c7"  class="btn btn-default" style="width: 10%" >C 7 Black Pawn</button>						
+		<button type="button" id="d7"  class="btn btn-default" style="width: 10%" >D 7 Black Pawn</button>						
+		<button type="button" id="e7"  class="btn btn-default" style="width: 10%" >E 7 Black Pawn</button>
+		<button type="button" id="f7"  class="btn btn-default" style="width: 10%" >F 7 Black Pawn</button>
+		<button type="button" id="g7"  class="btn btn-default" style="width: 10%" >G 7 Black Pawn</button>
+		<button type="button" id="h7"  class="btn btn-default" style="width: 10%" >H 7 Black Pawn</button>
+		
+	    <!-- Rank 6 -->                                              
+		<button type="button" id="a6"  class="btn btn-default" style="width: 10%" >A 6 </button>						
+		<button type="button" id="b6"  class="btn btn-default" style="width: 10%" >B 6 </button>						
+		<button type="button" id="c6"  class="btn btn-default" style="width: 10%" >C 6 </button>						
+		<button type="button" id="d6"  class="btn btn-default" style="width: 10%" >D 6 </button>						
+		<button type="button" id="e6"  class="btn btn-default" style="width: 10%" >E 6 </button>
+		<button type="button" id="f6"  class="btn btn-default" style="width: 10%" >F 6 </button>
+		<button type="button" id="g6"  class="btn btn-default" style="width: 10%" >G 6 </button>
+		<button type="button" id="h6"  class="btn btn-default" style="width: 10%" >H 6 </button>
+		
+		<!-- Rank 5 -->                                              
+		<button type="button" id="a5"  class="btn btn-default" style="width: 10%" >A 5 </button>						
+		<button type="button" id="b5"  class="btn btn-default" style="width: 10%" >B 5 </button>						
+		<button type="button" id="c5"  class="btn btn-default" style="width: 10%" >C 5 </button>						
+		<button type="button" id="d5"  class="btn btn-default" style="width: 10%" >D 5 </button>						
+		<button type="button" id="e5"  class="btn btn-default" style="width: 10%" >E 5 </button>
+		<button type="button" id="f5"  class="btn btn-default" style="width: 10%" >F 5 </button>
+		<button type="button" id="g5"  class="btn btn-default" style="width: 10%" >G 5 </button>
+		<button type="button" id="h5"  class="btn btn-default" style="width: 10%" >H 5 </button>
+		
+		<!-- Rank 4 -->                                              
+		<button type="button" id="a4"  class="btn btn-default" style="width: 10%" >A 4 </button>						
+		<button type="button" id="b4"  class="btn btn-default" style="width: 10%" >B 4 </button>						
+		<button type="button" id="c4"  class="btn btn-default" style="width: 10%" >C 4 </button>						
+		<button type="button" id="d4"  class="btn btn-default" style="width: 10%" >D 4 </button>						
+		<button type="button" id="e4"  class="btn btn-default" style="width: 10%" >E 4 </button>
+		<button type="button" id="f4"  class="btn btn-default" style="width: 10%" >F 4 </button>
+		<button type="button" id="g4"  class="btn btn-default" style="width: 10%" >G 4 </button>
+		<button type="button" id="h4"  class="btn btn-default" style="width: 10%" >H 4 </button>
+		
+		<!-- Rank 3 -->                                              
+		<button type="button" id="a3"  class="btn btn-default" style="width: 10%" >A 3 </button>						
+		<button type="button" id="b3"  class="btn btn-default" style="width: 10%" >B 3 </button>						
+		<button type="button" id="c3"  class="btn btn-default" style="width: 10%" >C 3 </button>						
+		<button type="button" id="d3"  class="btn btn-default" style="width: 10%" >D 3 </button>						
+		<button type="button" id="e3"  class="btn btn-default" style="width: 10%" >E 3 </button>
+		<button type="button" id="f3"  class="btn btn-default" style="width: 10%" >F 3 </button>
+		<button type="button" id="g3"  class="btn btn-default" style="width: 10%" >G 3 </button>
+		<button type="button" id="h3"  class="btn btn-default" style="width: 10%" >H 3 </button>
+		
+		<!-- Rank 2 -->                                              
+		<button type="button" id="a2"  class="btn btn-default" style="width: 10%" >A 2 White Pawn</button>						
+		<button type="button" id="b2"  class="btn btn-default" style="width: 10%" >B 2 White Pawn</button>						
+		<button type="button" id="c2"  class="btn btn-default" style="width: 10%" >C 2 White Pawn</button>						
+		<button type="button" id="d2"  class="btn btn-default" style="width: 10%" >D 2 White Pawn</button>						
+		<button type="button" id="e2"  class="btn btn-default" style="width: 10%" >E 2 White Pawn</button>
+		<button type="button" id="f2"  class="btn btn-default" style="width: 10%" >F 2 White Pawn</button>
+		<button type="button" id="g2"  class="btn btn-default" style="width: 10%" >G 2 White Pawn</button>
+		<button type="button" id="h2"  class="btn btn-default" style="width: 10%" >H 2 White Pawn</button>
+		
+		<!-- Rank 1 -->                                              
+		<button type="button" id="a1" class="btn btn-default" style="width: 10%" >A 1 Rook</button>						
+		<button type="button" id="b1" class="btn btn-default" style="width: 10%" >B 1 Knight</button>						
+		<button type="button" id="c1" class="btn btn-default" style="width: 10%" >C 1 Bishop</button>						
+		<button type="button" id="d1" class="btn btn-default" style="width: 10%" >D 1 Queen</button>						
+		<button type="button" id="e1" class="btn btn-default" style="width: 10%" >E 1 King</button>
+		<button type="button" id="f1" class="btn btn-default" style="width: 10%" >F 1 Bishop</button>
+		<button type="button" id="g1" class="btn btn-default" style="width: 10%" >G 1 Knight</button>
+		<button type="button" id="h1" class="btn btn-default" style="width: 10%" >H 1 Rook</button>
+	</div>
+	
+    <script src="js/chessboard-1.0.0.min.js"></script>
+	<script src="js/chess.js"></script>
+	<script src="sf.js"></script>
+	<script src="staticeval.js"></script>
+	<script src="squares.js"></script>
+	<!-- <link rel="stylesheet" href="css/chessboard-arrows.css"> -->
+     <!-- <script src="js/chessboard-arrows.js"></script>  -->
+	<script src="script.js"></script>
+	<script>
+	alert(game.fen())
+	</script>
+	<p style="padding-left: 2%">© 2020 <a href="vishwas.ib@gmail.com"> Vishwas</a>. Thanks <a href="https://chessboardjs.com"> Chessboard.js</a>, <a href="https://github.com/jhlywa/chess.js"> Chess.js</a> & <a href="https://stockfishchess.org/"> Stockfish</a></p>						
+</body>
+</html>
