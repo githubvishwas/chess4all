@@ -161,6 +161,7 @@ var Undo = function() {
 	game.undo()
 	game.undo()
     load(game.fen())
+	engineMove.html("move taken back!")
 }
 function ButtonSingleClick (buttonobj) {
 	
