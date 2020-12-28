@@ -302,7 +302,7 @@ function changeBoard() {
 }
 var newGame = function() {
 	
-    //game.reset();
+    game.reset();
     
     updateStatus();
 }
